@@ -49,6 +49,7 @@ Et voila, your centralized logging server is up and running!
 Browse **http://$domain/kibana-3.0.0milestone4/** and happy logging!
 
 ![Picture](http://www.elasticsearch.org/content/uploads/2013/08/BQIielHCAAAs2So.png)
+Image credit: elasticsearch.org
 
 At this point you can authorize some clients in roles/shorewall/templates/rules.j2 and reload Shorewall.
 
