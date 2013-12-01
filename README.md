@@ -26,7 +26,7 @@ Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2e
 
 ### Use
 
-`ansible-playbook central-logs.yml -e="usname= domain= pass= myip="`
+`ansible-playbook central-logs.yml --extra-vars="usname= domain= pass= myip="`
 
 or you may want to setup individual roles step by step:
 
@@ -34,15 +34,15 @@ or you may want to setup individual roles step by step:
 
 `ansible-playbook central-logs.yml -t redis`
 
-`ansible-playbook central-logs.yml -t logstash`
-
 `ansible-playbook central-logs.yml -t elasticsearch`
+
+`ansible-playbook central-logs.yml -t logstash`
 
 `ansible-playbook central-logs.yml -t supervisord`
 
-`ansible-playbook central-logs.yml -e="usname= domain= pass=" -t apache-kibana`
+`ansible-playbook central-logs.yml --extra-vars="usname= domain= pass=" -t apache-kibana`
 
-`ansible-playbook central-logs.yml -e="myip=" -t shorewall`
+`ansible-playbook central-logs.yml --extra-vars="myip=" -t shorewall`
 
 Et voila, your centralized logging server is up and running!
 
