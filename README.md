@@ -1,0 +1,77 @@
+### Ansible Playbook for automate the setup and configuration of a centralized Rsyslog server with Logstash, Elasticsearch, Redis and Kibana.
+
+Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2elasticsearch => Elasticsearch => Kibana
+
+![Picture](http://www.servermanaged.it/wp-content/uploads/2013/10/Setup-Logstash-Elasticsearch-Kibana.png)
+
+### Preparation
+
+1. Setup your target host in hosts
+
+2. Customize Logstash filters (if needed) in roles/logstash/templates/filters_log2redis.conf.j2
+
+3. Setup (if needed) Elasticsearch and Logstash version in vars/default.yml (Logstash 1.2.2 works with Elasticsearch 0.90.3)
+
+### Variables
+
+**usname** : username of the Apache user 
+**domain** : domain name of Apache vhost
+**pass** : password for Apache auth
+**myip**: ip address of the client authorized to connect at http://$domain/kibana-3.0.0milestone4/
+
+### Use
+
+`ansible-playbook central-logs.yml -t "rsyslog-server,redis,logstash,elasticsearch,supervisord,apache-kibana,shorewall" -e="usname= domain= pass= myip="`
+
+or you may want to setup individual roles step by step:
+
+`ansible-playbook central-logs.yml -t rsyslog-server`
+`ansible-playbook central-logs.yml -t redis`
+`ansible-playbook central-logs.yml -t logstash`
+`ansible-playbook central-logs.yml -t elasticsearch`
+`ansible-playbook central-logs.yml -t supervisord`
+`ansible-playbook central-logs.yml -e="usname= domain= pass=" -t apache-kibana`
+`ansible-playbook central-logs.yml -e="myip=" -t shorewall`
+
+Et voila, your centralized logging server is up and running!
+
+Browse http://$domain/kibana-3.0.0milestone4/index.html#/dashboard/file/logstash.json
+
+At this point you can authorize some clients in roles/shorewall/templates/rules.j2 and reload Shorewall.
+
+This is what the Playbook do:
+
+1. Setup and configure Rsyslog to listen on tcp 514
+
+2. Setup and configure Redis
+
+3. Setup and configure two Logstash instances (managed by Supervisord)
+
+4. Setup and configure Elasticsearch with a simple Logstash mapping
+
+5. Setup and configure Supervisord to manage Logstash instances
+
+6. Setup and configure Apache and Kibana 3 with simple HTTP authentication
+
+7. Setup and configure Shorewall (optional but recommended)
+
+### TODO
+
+Add support for Statsd and Librato
+
+Add support for CentOS
+
+Rsyslog-server role can be extended with TLS support. In fact my productions systems ingest all the logs from clients with TLS.
+See http://www.rsyslog.com/doc/rsyslog_tls.html
+
+If you like this project feel free to contribute with a pull requests!
+
+### Links
+
+Ansible
+Logstash
+Elasticsearch
+Kibana
+Redis
+Supervisord
+Ansible Fan Community
