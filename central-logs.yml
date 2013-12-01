@@ -1,5 +1,5 @@
 ---
-- hosts: puppy
+- hosts: logger
   vars_files:
    - vars/default.yml
   roles:
