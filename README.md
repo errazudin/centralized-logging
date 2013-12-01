@@ -46,7 +46,7 @@ or you may want to setup individual roles step by step:
 
 Et voila, your centralized logging server is up and running!
 
-Browse http://$domain/kibana-3.0.0milestone4/index.html#/dashboard/file/logstash.json
+Browse **http://$domain/kibana-3.0.0milestone4/** and happy logging!
 
 At this point you can authorize some clients in roles/shorewall/templates/rules.j2 and reload Shorewall.
 
@@ -81,7 +81,7 @@ If you like this project feel free to contribute with a pull requests!
 
 [Ansible](http://www.ansibleworks.com/)
 
-[Logstash](http://www.http://logstash.net/)
+[Logstash](http://www.logstash.net/)
 
 [Elasticsearch](http://www.elasticsearch.org/)
 
