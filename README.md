@@ -14,11 +14,13 @@ Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2e
 
 3. Setup (if needed) Elasticsearch and Logstash version in vars/default.yml (Logstash 1.2.2 works with Elasticsearch 0.90.3)
 
+4. Add your custom domain in /etc/hosts. Example: 11.11.11.11 logger
+
 ### Variables
 
 **usname** : username of the Apache user 
 
-**domain** : domain name of Apache vhost
+**domain** : domain name of Apache vhost. Example: logger
 
 **pass** : password for Apache auth
 
