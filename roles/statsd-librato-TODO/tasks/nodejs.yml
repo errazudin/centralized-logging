@@ -1,9 +1,0 @@
-- name: Add wheezy backports
-  apt_repository: repo='deb http://ftp.debian.org/debian/ wheezy-backports main' state=present
-- name: Install Nodejs
-  apt: pkg={{ item }} update_cache=yes
-  with_items:
-   - nodejs
-   - nodejs-legacy
-- name: Scarica Statsd
-  git: repo=git://github.com/etsy/statsd.git dest=/usr/local/sbin/statsd
