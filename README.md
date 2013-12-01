@@ -15,8 +15,11 @@ Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2e
 ### Variables
 
 **usname** : username of the Apache user 
+
 **domain** : domain name of Apache vhost
+
 **pass** : password for Apache auth
+
 **myip**: ip address of the client authorized to connect at http://$domain/kibana-3.0.0milestone4/
 
 ### Use
@@ -26,11 +29,17 @@ Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2e
 or you may want to setup individual roles step by step:
 
 `ansible-playbook central-logs.yml -t rsyslog-server`
+
 `ansible-playbook central-logs.yml -t redis`
+
 `ansible-playbook central-logs.yml -t logstash`
+
 `ansible-playbook central-logs.yml -t elasticsearch`
+
 `ansible-playbook central-logs.yml -t supervisord`
+
 `ansible-playbook central-logs.yml -e="usname= domain= pass=" -t apache-kibana`
+
 `ansible-playbook central-logs.yml -e="myip=" -t shorewall`
 
 Et voila, your centralized logging server is up and running!
