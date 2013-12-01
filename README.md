@@ -1,6 +1,6 @@
 ### Ansible Playbook for automate the setup and configuration of a centralized Rsyslog server with Logstash, Elasticsearch, Redis and Kibana.
 
-Tested on Debian 7 x64 and i386
+**Platform**: Debian 7 x64 - x32
 
 Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2elasticsearch => Elasticsearch => Kibana
 
@@ -47,6 +47,8 @@ or you may want to setup individual roles step by step:
 Et voila, your centralized logging server is up and running!
 
 Browse **http://$domain/kibana-3.0.0milestone4/** and happy logging!
+
+![Picture](http://www.elasticsearch.org/content/uploads/2013/08/BQIielHCAAAs2So.png)
 
 At this point you can authorize some clients in roles/shorewall/templates/rules.j2 and reload Shorewall.
 
