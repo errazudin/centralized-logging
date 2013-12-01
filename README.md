@@ -69,6 +69,8 @@ This is what the Playbook do:
 
 7. Setup and configure Shorewall (optional but recommended)
 
+This playbook run in 6m circa.
+
 ### TODO
 
 Add support for Statsd and Librato
