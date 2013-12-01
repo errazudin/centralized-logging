@@ -1,5 +1,7 @@
 ### Ansible Playbook for automate the setup and configuration of a centralized Rsyslog server with Logstash, Elasticsearch, Redis and Kibana.
 
+Tested on Debian 7 x64 and i386
+
 Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2elasticsearch => Elasticsearch => Kibana
 
 ![Picture](http://www.servermanaged.it/wp-content/uploads/2013/10/Setup-Logstash-Elasticsearch-Kibana.png)
@@ -24,7 +26,7 @@ Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2e
 
 ### Use
 
-`ansible-playbook central-logs.yml -t "rsyslog-server,redis,logstash,elasticsearch,supervisord,apache-kibana,shorewall" -e="usname= domain= pass= myip="`
+`ansible-playbook central-logs.yml -e="usname= domain= pass= myip="`
 
 or you may want to setup individual roles step by step:
 
@@ -56,7 +58,7 @@ This is what the Playbook do:
 
 3. Setup and configure two Logstash instances (managed by Supervisord)
 
-4. Setup and configure Elasticsearch with a simple Logstash mapping
+4. Setup and configure Elasticsearch with a simple Logstash mapping. Install Open-Jdk
 
 5. Setup and configure Supervisord to manage Logstash instances
 
