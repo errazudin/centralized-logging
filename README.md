@@ -79,10 +79,16 @@ If you like this project feel free to contribute with a pull requests!
 
 ### Links
 
-Ansible
-Logstash
-Elasticsearch
-Kibana
-Redis
-Supervisord
-Ansible Fan Community
+[Ansible](http://www.ansibleworks.com/)
+
+[Logstash](http://www.http://logstash.net/)
+
+[Elasticsearch](http://www.elasticsearch.org/)
+
+[Kibana](http://www.elasticsearch.org/overview/kibana/)
+
+[Redis](http://redis.io/)
+
+[Supervisord](http://supervisord.org/)
+
+[Ansible Fan Community](https://plus.google.com/u/0/communities/108222183653550371543)
