@@ -1,0 +1,135 @@
+input {
+	file {
+		type => "linux-syslog"
+		path => ["/var/log/Gestiti/*.log"]
+		exclude => [ "*.gz" ]
+		codec => plain { charset => "ISO-8859-1" }
+	}
+
+	file {
+		type => "broids"
+		path => ["/var/log/BroIds/*.log"]
+		exclude => [ "*.gz" ]
+	}
+
+	file {
+		type => "popimap"
+		path => ["/var/log/Gestiti/Mail/*.log"]
+		exclude => [ "*.gz" ]
+	}
+	
+	file {
+		type => "sshd"
+		path => ["/var/log/Gestiti/Ssh/*.log"]
+		exclude => [ "*.gz" ]
+	}
+
+	file {
+
+		type => "firewall"
+		path => ["/var/log/Gestiti/firewall_*.log"]
+		exclude => [ "*.gz" ]
+	}
+
+	file {
+		type => "webservermanaged"
+		path => ["/var/log/ServerManaged/*.log"]
+		exclude => [ "*.gz" ]
+	}
+}
+filter {
+## SERVERMANAGED INTERNAL SYSTEMS
+	if [type] == "webservermanaged" {
+		grok {
+			match => [ "message", "%{IP:webservermanagedsourceip}" ]
+		}
+	
+	        geoip {
+                source => "webservermanagedsourceip"
+        }
+
+                dns {
+                        reverse => [  "webservermanagedsourceip" ]
+                }
+        }
+## FINE SERVERMANAGED INTERNAL SYSTEMS
+
+	if [type] == "broids" {
+		grok {
+			match => [ "message", "%{IP:sourceip}" ]
+		}
+	}
+
+	if [type] == "popimap" {
+        	grok {
+                	match => [ "message", "%{IP:popimapsourceip}" ]
+        	}
+	}
+	
+	if [type] == "sshd" {
+		grok {
+			match => [ "message", "%{IP:sshsourceip}" ]
+		}
+	}
+	
+	if [type] == "firewall" {
+		grok {
+			match => [ "message", "%{IP:fwsourceip}" ]
+		}
+	}
+
+	geoip {
+		add_tag => [ "GeoIPWeb" ]
+		source => "sourceip"
+	}
+	
+	geoip {
+		add_tag => [ "GeoIPImap" ]
+		source => "popimapsourceip"
+	}
+
+	geoip {
+		add_tag => [ "GeoIPSsh" ]
+		source => "sshsourceip"
+	}
+
+	geoip {
+		add_tag => [ "GeoIPFw" ]
+		source => "fwsourceip"
+	}
+
+	if [type] == "popimap" {
+		dns {
+			reverse => [  "popimapsourceip" ]
+		}
+	}
+
+	if [type] == "sshd" {
+		dns {
+			reverse => [  "sshsourceip" ]
+		}
+	}
+
+	if [type] == "firewall" {
+		dns {
+			reverse => [ "fwsourceip" ]
+		}
+	}
+
+}
+output {
+	redis {
+		host => "127.0.0.1"
+		data_type => "list"
+		key => "syslog"
+	}
+
+        if [message] =~ "netstream" {
+                email {
+			body => "Rilevato errore! %{message}"
+			from => "bigdata@servermanaged.it"
+			subject => "Log Alert"
+                        to => "alert@servermanaged.it"
+                }
+        }
+}

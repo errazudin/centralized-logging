@@ -1,0 +1,36 @@
+output {
+	redis {
+		host => "127.0.0.1"
+		data_type => "list"
+		key => "syslog"
+	}
+
+        if [message] =~ "netstream" {
+                email {
+			body => "Rilevato errore! %{message}"
+			from => "bigdata@servermanaged.it"
+			subject => "Log Alert"
+                        to => "alert@servermanaged.it"
+                }
+
+{{ ansible_managed }}
+
+		statsd { 
+			increment => "rsyslog.error.%{netstream}"
+		}        
+
+{{ ansible_managed }}
+}
+
+{{ ansible_managed }}
+
+#if "netstream_err" in [tags] {
+#	stdout {
+#  		message => "rate : %{rsyslog_err.count}"
+#
+#	}
+#}
+
+{{ ansible_managed }}
+
+}

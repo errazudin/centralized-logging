@@ -1,0 +1,109 @@
+filter {
+{{ ansible_managed }}
+
+#        if [message] =~ "netstream" {
+#		metrics {
+#			meter => "rsyslog_err"
+#			add_tag => "netstream_err"
+#		}
+#        }
+
+        if [message] =~ "netstream" {
+		mutate {
+			add_tag => [ "netstream" ]			
+		}
+       }
+
+{{ ansible_managed }}
+
+###
+{{ ansible_managed }}
+
+#	if [type] == "linux-syslog" {
+#		date {
+#			timestamp => "ISO8601"
+#			add_tag => [ "dated" ]
+#		}
+#	}
+
+{{ ansible_managed }}
+###
+## SERVERMANAGED INTERNAL SYSTEMS
+	if [type] == "webservermanaged" {
+		grok {
+			match => [ "message", "%{IP:webservermanagedsourceip}" ]
+		}
+	
+	        geoip {
+                source => "webservermanagedsourceip"
+        }
+
+                dns {
+                        reverse => [  "webservermanagedsourceip" ]
+                }
+        }
+## FINE SERVERMANAGED INTERNAL SYSTEMS
+
+	if [type] == "broids" {
+		grok {
+			match => [ "message", "%{IP:sourceip}" ]
+		}
+	}
+
+	if [type] == "popimap" {
+        	grok {
+                	match => [ "message", "%{IP:popimapsourceip}" ]
+        	}
+	}
+	
+	if [type] == "sshd" {
+		grok {
+			match => [ "message", "%{IP:sshsourceip}" ]
+		}
+	}
+	
+	if [type] == "firewall" {
+		grok {
+			match => [ "message", "%{IP:fwsourceip}" ]
+		}
+	}
+
+	geoip {
+		add_tag => [ "GeoIPWeb" ]
+		source => "sourceip"
+	}
+	
+	geoip {
+		add_tag => [ "GeoIPImap" ]
+		source => "popimapsourceip"
+	}
+
+	geoip {
+		add_tag => [ "GeoIPSsh" ]
+		source => "sshsourceip"
+	}
+
+	geoip {
+		add_tag => [ "GeoIPFw" ]
+		source => "fwsourceip"
+	}
+
+	if [type] == "popimap" {
+		dns {
+			reverse => [  "popimapsourceip" ]
+		}
+	}
+
+	if [type] == "sshd" {
+		dns {
+			reverse => [  "sshsourceip" ]
+		}
+	}
+
+	if [type] == "firewall" {
+		dns {
+			reverse => [ "fwsourceip" ]
+		}
+	}
+
+}

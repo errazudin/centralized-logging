@@ -1,0 +1,10 @@
+- name: Install Redis
+  apt: pkg={{ item }} state=installed
+  when: ansible_os_family == "Debian"
+  with_items:
+   - redis-server
+- name: Copy Redis config
+  template: src=redis.j2 dest=/etc/redis/redis.conf owner=root group=root mode=0644
+  notify:
+   - restart redis
+

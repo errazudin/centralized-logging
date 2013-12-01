@@ -1,0 +1,39 @@
+input {
+	file {
+		type => "linux-syslog"
+		path => ["/var/log/Gestiti/*.log"]
+		exclude => [ "*.gz" ]
+		codec => plain { charset => "ISO-8859-1" }
+	}
+
+	file {
+		type => "broids"
+		path => ["/var/log/BroIds/*.log"]
+		exclude => [ "*.gz" ]
+	}
+
+	file {
+		type => "popimap"
+		path => ["/var/log/Gestiti/Mail/*.log"]
+		exclude => [ "*.gz" ]
+	}
+	
+	file {
+		type => "sshd"
+		path => ["/var/log/Gestiti/Ssh/*.log"]
+		exclude => [ "*.gz" ]
+	}
+
+	file {
+
+		type => "firewall"
+		path => ["/var/log/Gestiti/firewall_*.log"]
+		exclude => [ "*.gz" ]
+	}
+
+	file {
+		type => "webservermanaged"
+		path => ["/var/log/ServerManaged/*.log"]
+		exclude => [ "*.gz" ]
+	}
+}

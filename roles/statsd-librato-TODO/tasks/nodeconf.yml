@@ -1,0 +1,4 @@
+- name: Statsd config
+  template: src=local.j2 dest=/usr/local/sbin/statsd/local.js
+- name: simple init script 
+  template: src=init.j2 dest=/etc/logstash.d/init.sh owner=root group=root mode=0755

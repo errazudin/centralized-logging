@@ -1,0 +1,9 @@
+- include: conf_logstash.yml
+  tags:
+   - conf
+- include: nodejs.yml
+  tags:
+   - nodejs
+- include: nodeconf.yml
+  tags:
+   - nodeconf
