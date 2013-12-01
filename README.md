@@ -79,8 +79,7 @@ Add support for Statsd and Librato
 
 Add support for CentOS
 
-Rsyslog-server role can be extended with TLS support. In fact my productions systems ingest all the logs from clients with TLS.
-See http://www.rsyslog.com/doc/rsyslog_tls.html
+Rsyslog-server role can be extended with TLS support. See http://www.rsyslog.com/doc/rsyslog_tls.html
 
 If you like this project feel free to contribute with a pull requests!
 
