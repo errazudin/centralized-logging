@@ -2,6 +2,8 @@
 
 **Platform**: Tested on Debian 7 x64 - i386
 
+**Disclaimer**: do not run this Playbook on a live production system!! Use a dedicated instances instead.
+
 **Prerequisites**: At least 1GB Ram required. 2GB is better
 
 **Logging Logic**: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2elasticsearch => Elasticsearch => Kibana
@@ -86,7 +88,7 @@ Rsyslog-server role can be extended with TLS support. See http://www.rsyslog.com
 
 At some point in future you will need to update Elasticsearch and Logstash version in vars/default.yml
 
-If you like this project feel free to contribute with a pull requests!
+If you like this project feel free to report a bug or contribute with a pull requests!
 
 ### Links
 
