@@ -1,6 +1,6 @@
 ### Ansible Playbook for automate the setup and configuration of a centralized Rsyslog server with Logstash, Elasticsearch, Redis and Kibana.
 
-**Platform**: Debian 7 / Ubuntu / x64 - i386
+**Platform**: Tested on Debian 7 x64 - i386
 
 **Prerequisites**: At least 1GB Ram required. 2GB is better
 
