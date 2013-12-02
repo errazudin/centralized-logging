@@ -1,8 +1,10 @@
 ### Ansible Playbook for automate the setup and configuration of a centralized Rsyslog server with Logstash, Elasticsearch, Redis and Kibana.
 
-**Platform**: Debian 7 x64 - x32 - At least 1GB Ram required. 2GB is better
+**Platform**: Debian 7 / Ubuntu / x64 - i386
 
-Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2elasticsearch => Elasticsearch => Kibana
+**Prerequisites**: At least 1GB Ram required. 2GB is better
+
+**Logging Logic**: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2elasticsearch => Elasticsearch => Kibana
 
 ![Picture](http://www.servermanaged.it/wp-content/uploads/2013/10/Setup-Logstash-Elasticsearch-Kibana.png)
 
@@ -12,9 +14,7 @@ Logging Scheme: Clients => Rsyslog Tcp 514 => logstash2redis => Redis => redis2e
 
 2. Customize Logstash filters (if needed) in roles/logstash/templates/filters_log2redis.conf.j2
 
-3. Setup (if needed) Elasticsearch and Logstash version in vars/default.yml (Logstash 1.2.2 works with Elasticsearch 0.90.3)
-
-4. Add your custom domain in /etc/hosts. Example: 11.11.11.11 logger
+3. Add your custom domain in /etc/hosts on your local box. Example: 11.11.11.11 logger
 
 ### Variables
 
@@ -80,6 +80,11 @@ Add support for Statsd and Librato
 Add support for CentOS
 
 Rsyslog-server role can be extended with TLS support. See http://www.rsyslog.com/doc/rsyslog_tls.html
+
+
+### PS
+
+At some point in future you will need to update Elasticsearch and Logstash version in vars/default.yml
 
 If you like this project feel free to contribute with a pull requests!
 
